@@ -1,20 +1,20 @@
 # isaac-wiki-mcp
 
-MCP server providing **wiki-style full-text search** over The Binding of Isaac: Repentance modding API documentation.
+以撒的结合：Repentance 模组 API 文档的 **MCP 知识库服务器**。
 
-Built with an llmwiki architecture — file-system-native markdown pages with `[[wikilinks]]` cross-references. Zero ML dependencies, pure Python.
+采用 llmwiki 架构 —— 文件系统原生的 markdown 页面 + `[[wikilinks]]` 交叉引用。纯 Python 实现，零 ML 依赖，只依赖 `loguru` 一个包。
 
-## Why
+## 解决了什么问题
 
-When vibecoding Isaac mods, LLMs hallucinate API method names and signatures. This gives them a structured, searchable knowledge base of all 72 classes and 1,554 methods — returning **complete class pages** (not fragmented chunks) so the model has full context.
+用 AI 写以撒模组时，LLM 会编造不存在的 API 方法名和参数。这个项目把 72 个类、1,554 个方法的完整 API 文档做成了可搜索的知识库，让 AI 能查到**完整的类页面**（不是碎片化的 chunk），避免幻觉。
 
-## Quick Start
+## 快速上手
 
 ```bash
 pip install isaac-wiki-mcp
 ```
 
-Add to your Claude Code MCP config (`~/.claude/mcp.json`):
+然后在 Claude Code 的 MCP 配置里加上（`~/.claude/mcp.json`）：
 
 ```json
 {
@@ -27,71 +27,71 @@ Add to your Claude Code MCP config (`~/.claude/mcp.json`):
 }
 ```
 
-Or with Docker:
+也可以用 Docker：
 
 ```json
 {
   "mcpServers": {
     "isaac-wiki": {
       "command": "docker",
-      "args": ["run", "-i", "--rm", "ghcr.io/USER/isaac-wiki-mcp"]
+      "args": ["run", "-i", "--rm", "ghcr.io/你的用户名/isaac-wiki-mcp"]
     }
   }
 }
 ```
 
-## Tools
+## MCP 工具
 
-| Tool | Description |
-|------|-------------|
-| `wiki_search` | Full-text search across all wiki pages. Returns complete page content. |
-| `wiki_read` | Read a full class page by name (e.g. `EntityPlayer`). |
-| `wiki_list` | List pages by category (`classes`, `enums`, `tutorials`). |
-| `wiki_stats` | Page counts, method counts, categories. |
+| 工具 | 功能 |
+|------|------|
+| `wiki_search` | 全文搜索，返回完整页面内容（不是片段） |
+| `wiki_read` | 按名称读取完整类文档，如 `EntityPlayer` |
+| `wiki_list` | 按分类列出页面（classes / enums / tutorials） |
+| `wiki_stats` | 查看知识库统计数据 |
 
-## CLI
+## 命令行
 
 ```bash
 isaac-wiki search "player health" --category classes
 isaac-wiki read EntityPlayer
 isaac-wiki list --category classes
 isaac-wiki stats
-isaac-wiki build          # rebuild wiki from data sources
+isaac-wiki build          # 从数据源重建 wiki
 ```
 
-## Data
+## 数据规模
 
-| Category | Count |
-|----------|-------|
-| Classes | 71 |
-| Methods | 1,554 |
-| Enums | 81 |
-| Tutorials | 20 |
-| Total pages | 173 |
+| 分类 | 数量 |
+|------|------|
+| 类 | 71 |
+| 方法 | 1,554 |
+| 枚举 | 81 |
+| 教程 | 20 |
+| 总页面 | 173 |
 
-Each class page includes: summary, inheritance chain, related types with `[[wikilinks]]`, all methods with cleaned signatures, DLC compatibility badges, and use cases.
+每个类页面包含：概述、继承链、关联类型（带 `[[wikilinks]]`）、所有方法的签名、DLC 兼容标记、使用场景。
 
-## Architecture
+## 架构
 
 ```
 src/isaac_wiki/
-  wiki_builder.py   — data conversion (JSON → wiki markdown + cleaning)
-  wiki_engine.py    — full-text search + page retrieval (pure Python)
-  facade.py         — JSON-safe public API
-  server.py         — MCP stdio server (4 tools)
-  cli.py            — CLI
+  wiki_builder.py   — 数据清洗 + JSON → wiki markdown 转换
+  wiki_engine.py    — 全文搜索 + 页面读取（纯 Python）
+  facade.py         — 对外 API 层（永不抛异常）
+  server.py         — MCP stdio 服务器（4 个工具）
+  cli.py            — 命令行工具
 
-wiki/               — generated markdown pages (~1.3 MB)
-  classes/          — 71 class pages with [[wikilinks]]
-  enums/            — 81 enum reference pages
-  tutorials/        — 20 how-to guides
-  index.md          — global navigation
-  llms.txt          — AI-consumable summary
+wiki/               — 生成的 markdown 页面（~1.3MB）
+  classes/          — 71 个类页面，含 [[wikilinks]]
+  enums/            — 81 个枚举参考页
+  tutorials/        — 20 个教程
+  index.md          — 全局导航
+  llms.txt          — AI 可消费的摘要（llmstxt.org 规范）
 
-data/               — source JSON (input for wiki_builder)
+data/               — 源数据（wiki_builder 的输入）
 ```
 
-## Dev
+## 开发
 
 ```bash
 pip install -e ".[dev]"
