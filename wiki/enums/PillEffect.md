@@ -1,0 +1,59 @@
+---
+tags:
+  - Enum
+---
+# Enum "PillEffect"
+|DLC|Value|Enumerator|Comment|
+|:--|:--|:--|:--|
+|[ ](#)|-1 |PILLEFFECT_NULL  |  |
+|[ ](#)|0 |PILLEFFECT_BAD_GAS  |  |
+|[ ](#)|1 |PILLEFFECT_BAD_TRIP  |  |
+|[ ](#)|2 |PILLEFFECT_BALLS_OF_STEEL  |  |
+|[ ](#)|3 |PILLEFFECT_BOMBS_ARE_KEYS  |  |
+|[ ](#)|4 |PILLEFFECT_EXPLOSIVE_DIARRHEA  |  |
+|[ ](#)|5 |PILLEFFECT_FULL_HEALTH  |  |
+|[ ](#)|6 |PILLEFFECT_HEALTH_DOWN  |  |
+|[ ](#)|7 |PILLEFFECT_HEALTH_UP  |  |
+|[ ](#)|8 |PILLEFFECT_I_FOUND_PILLS  |  |
+|[ ](#)|9 |PILLEFFECT_PUBERTY  |  |
+|[ ](#)|10 |PILLEFFECT_PRETTY_FLY  |  |
+|[ ](#)|11 |PILLEFFECT_RANGE_DOWN  |  |
+|[ ](#)|12 |PILLEFFECT_RANGE_UP  |  |
+|[ ](#)|13 |PILLEFFECT_SPEED_DOWN  |  |
+|[ ](#)|14 |PILLEFFECT_SPEED_UP  |  |
+|[ ](#)|15 |PILLEFFECT_TEARS_DOWN  |  |
+|[ ](#)|16 |PILLEFFECT_TEARS_UP  |  |
+|[ ](#)|17 |PILLEFFECT_LUCK_DOWN  |  |
+|[ ](#)|18 |PILLEFFECT_LUCK_UP  |  |
+|[ ](#)|19 |PILLEFFECT_TELEPILLS  |  |
+|[ ](#)|20 |PILLEFFECT_48HOUR_ENERGY  |  |
+|[ ](#)|21 |PILLEFFECT_HEMATEMESIS  |  |
+|[ ](#)|22 |PILLEFFECT_PARALYSIS  |  |
+|[ ](#)|23 |PILLEFFECT_SEE_FOREVER  |  |
+|[ ](#)|24 |PILLEFFECT_PHEROMONES  |  |
+|[ ](#)|25 |PILLEFFECT_AMNESIA  |  |
+|[ ](#)|26 |PILLEFFECT_LEMON_PARTY  |  |
+|[ ](#)|27 |PILLEFFECT_WIZARD  |  |
+|[ ](#)|28 |PILLEFFECT_PERCS  |  |
+|[ ](#)|29 |PILLEFFECT_ADDICTED  |  |
+|[ ](#)|30 |PILLEFFECT_RELAX  |  |
+|[ ](#)|31 |PILLEFFECT_QUESTIONMARK  |  |
+|[ ](#)|32 |PILLEFFECT_LARGER  |  |
+|[ ](#)|33 |PILLEFFECT_SMALLER  |  |
+|[ ](#)|34 |PILLEFFECT_INFESTED_EXCLAMATION  |  |
+|[ ](#)|35 |PILLEFFECT_INFESTED_QUESTION  |  |
+|[ ](#)|36 |PILLEFFECT_POWER  |  |
+|[ ](#)|37 |PILLEFFECT_RETRO_VISION  |  |
+|[ ](#)|38 |PILLEFFECT_FRIENDS_TILL_THE_END  |  |
+|[ ](#)|39 |PILLEFFECT_X_LAX  |  |
+|[ ](#)|40 |PILLEFFECT_SOMETHINGS_WRONG  |  |
+|[ ](#)|41 |PILLEFFECT_IM_DROWSY  |  |
+|[ ](#)|42 |PILLEFFECT_IM_EXCITED  |  |
+|[ ](#)|43 |PILLEFFECT_GULP  |  |
+|[ ](#)|44 |PILLEFFECT_HORF  |  |
+|[ ](#)|45 |PILLEFFECT_SUNSHINE  |  |
+|[ ](#)|46 |PILLEFFECT_VURP  |  |
+|[ ](#)|47 |PILLEFFECT_SHOT_SPEED_DOWN  |  |
+|[ ](#)|48 |PILLEFFECT_SHOT_SPEED_UP  |  |
+|[ ](#)|49 |PILLEFFECT_EXPERIMENTAL  |  |
+|[ ](#)|50 |NUM_PILL_EFFECTS  |  |

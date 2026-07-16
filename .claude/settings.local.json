@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la data/)",
+      "Bash(ls -la src/isaac_rag/)",
+      "Bash(ls -la tests/)",
+      "Bash(docker --version)",
+      "Read(//c/Users/44859/.cache/huggingface/**)",
+      "Read(//c/Users/44859/.cache/torch/**)",
+      "Bash(python -c \"from sentence_transformers import SentenceTransformer; import os; print\\(os.path.expanduser\\('~/.cache/huggingface/hub/'\\)\\)\")",
+      "Bash(wsl -d docker-desktop --free)",
+      "Bash(wsl free *)",
+      "Bash(docker info *)",
+      "Bash(cat /c/Users/44859/.wslconfig 2>/dev/null || echo \"FILE_NOT_FOUND\")",
+      "Read(//c/Users/44859/**)",
+      "Bash(python -c \"from isaac_rag.facade import RAGFacade; f = RAGFacade\\(\\); r = f.search\\('player health', top_k=5\\); print\\(r['status']\\); print\\([\\(x.get\\('function'\\), x.get\\('score'\\)\\) for x in r.get\\('results',[]\\)]\\)\")",
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Read(//root/.cache/**)",
+      "Read(//app/.hf_cache/**)",
+      "Read(//home/vscode/.cache/**)",
+      "Bash(pip show *)",
+      "Bash(unset HF_ENDPOINT)",
+      "Bash(python3 -c ' *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\44859"
+    ]
+  }
+}

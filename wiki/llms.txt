@@ -1,0 +1,205 @@
+# Isaac Modding API Wiki
+> 72 classes, 81 enums, 20 tutorials
+
+## Classes
+
+- **BitSet128**: BitSet128 用于存储最大128位的标志位系统，解决64位整数标志数量限制，通过低64位(l)和高64位(h)组合实现，支持位运算与比较操作。
+- **CardConfigList**: 代表游戏中所有卡片配置的列表，通过 ItemConfig:GetCards() 获取，主要用于遍历和统计卡片数量。Get 方法由于 bug 暂时无法使用。
+- **Color**: Represents a color with RGBA channels and additional tint, colorize, and offset components for advanced sprite coloring.
+- **CostumeConfigList**: 表示一套服装配置的只读列表，但目前无法直接获取该类的实例；主要用于提供服装数量信息，但获取单个配置的方法因Bug无效。
+- **EffectList**: EffectList 是一个临时效果列表容器，用于管理角色当前所有激活的 TemporaryEffect。可通过 TemporaryEffects:GetEffectsList() 获取。
+- **Entity**: Entity 是所有实体的基类，提供生命/伤害管理、状态效果施加（燃烧、魅惑、混乱等）、属性修改、父子链查询、渲染控制、类型转换及大量可读写属性。
+
+- Subclasses:
+  - [[EntityBomb]]
+  - [[EntityEffect]]
+  - [[EntityFamiliar]]
+  - [[EntityKnife]]
+  - [[EntityLaser]]
+  - [[EntityNPC]]
+  - [[EntityPickup]]
+  - [[EntityPlayer]]
+  - [[EntityProjectile]]
+  - [[EntityTear]]
+- **EntityBomb**: EntityBomb代表游戏中的炸弹实体，可由玩家发射或生成，提供修改炸弹属性、爆炸倒计时和眼泪标志等功能的接口。
+- **EntityEffect**: EntityEffect 是用于表示游戏中各种视觉特效的实体类，如冲击波、水迹、粒子等。提供跟随父实体、设置伤害来源、配置半径、控制持续时间和下落物理效果等功能。
+- **EntityFamiliar**: Represents a familiar entity that can follow the player, orbit, shoot tears, collect pickups, and be managed as part of follower/delayed/orbit groups. Provides controls for movement, targeting, animation, and state.
+- **EntityKnife**: EntityKnife 代表一把飞刀实体，通常由玩家发射（如妈妈的刀）或作为路径跟随刀（如科技零）存在。提供控制刀的行为、泪液标志、运动参数和渲染属性的方法，用于自定义刀的飞行、返回和视觉表现。
+- **EntityLaser**: EntityLaser 表示游戏中的激光实体，包括硫磺火、科技激光、环形激光等，提供对激光路径、状态、行为和属性的完整控制，常通过 EntityPlayer 的 Fire 系方法获取。
+- **EntityList**: EntityList 是实体的列表容器，通过特定查询函数获得，提供长度获取和按索引访问实体。
+- **EntityNPC**: EntityNPC 表示游戏中的所有非玩家实体，包括敌人、Boss、友方 NPC 以及特殊单位。提供控制动画、发射弹幕、形态转换、精英化、查询与寻路等丰富功能，是操作 NPC 行为的核心类。
+- **EntityPickup**: EntityPickup 表示游戏中的可拾取物品实体，如硬币、心、炸弹、钥匙、宝箱、道具等。可通过 Entity:ToPickup() 将实体转换为拾取物操作接口，提供变形、价格控制、拾取行为、音效、箱子开启等功能。
+- **EntityPlayer**: EntityPlayer 类代表玩家实体，提供大量方法用于操作玩家状态，包括生命值、消耗品、道具、攻击、动画、属性等，是 Mod 开发中最核心的玩家交互接口。
+- **EntityProjectile**: 表示游戏中的投射物实体，提供属性与标志的动态修改，支持超时触发状态切换。
+- **EntityPtr**: A safe wrapper for holding a reference to an Entity that automatically becomes nil when the entity is destroyed, preventing crashes and unexpected behavior from dangling pointers.
+- **EntityRef**: EntityRef 用于封装和传递实体引用及其状态信息，常用于获取伤害来源、友好/魅惑状态等。
+- **EntityTear**: 代表游戏中玩家或其他源发射的眼泪实体，用于控制眼泪的外观、行为、物理属性和特殊效果。
+- **Font**: Font 类用于加载自定义字体、在屏幕上绘制各类文本（支持缩放、对齐与 Unicode），并提供字体度量查询和生命周期管理。
+- **FontRenderSettings**: 用于配置通过 Font:DrawString() 渲染文本时的特殊行为，例如自动换行、截断、对齐方式、行高比例、最大字符数和缺失字符替代。
+- **Game**: Game 类是游戏运行时的主要控制接口，提供对玩家、房间、关卡、画面特效、游戏状态（如恶魔交易计数、挑战完成、结局触发）的访问与修改能力。大部分与游戏进程相关的全局操作都通过该类的实例进行。
+- **GlobalFunctions**: 《以撒的结合》全局函数集，提供各种核心对象的构造函数、管理器获取以及实用工具函数，是 mod 开发的基础接口。
+- **Globals**: Globals 是所有 mod 可访问的全局变量集合，包括 Lua 标准库和 Isaac API 提供的变量。
+- **GridEntity**: 表示房间内的网格实体（如岩石、尖刺、门、坑）。可获取类型、变种、状态，并可进行破坏、伤害、渲染、更新及类型转换等操作。
+
+- Subclasses:
+  - [[GridEntityDoor]]
+  - [[GridEntityPit]]
+  - [[GridEntityPoop]]
+  - [[GridEntityPressurePlate]]
+  - [[GridEntityRock]]
+  - [[GridEntitySpikes]]
+  - [[GridEntityTNT]]
+- **GridEntityDesc**: GridEntityDesc用于保存网格实体的持久化状态信息，记录实体类型、变体、当前状态、生成计数、种子等数据，常通过GridEntity:GetSaveState()获取。
+- **GridEntityDoor**: 表示游戏中的门网格实体，负责管理门的开闭、锁定、动画、目标房间类型以及与钥匙、炸弹的交互。
+- **GridEntityPit**: GridEntityPit 表示房间中的坑洞网格实体。它可以被转换为可通过的桥梁，也可以附加梯子供角色攀爬。通过方法可以动态改变坑洞的通行性和外观。
+- **GridEntityPoop**: 代表游戏中的粪便网格实体，提供管理粪便生成率、重生机制、状态动画以及与玩家交互判断的功能。
+- **GridEntityPressurePlate**: GridEntityPressurePlate 代表游戏中的压力板网格实体，用于在被触碰或按下时触发奖励、事件或逻辑，并专门在贪婪模式下管理相关行为和视觉效果。
+- **GridEntityRock**: 表示网格中的岩石实体，提供动画状态和视觉表现的控制，支持普通岩石与大岩石的帧管理、瓦砾动画等。
+- **GridEntitySpikes**: GridEntitySpikes 代表游戏中的可伸缩尖刺网格实体，通过 Timeout 变量控制尖刺的伸出与收回状态切换。
+- **GridEntityTNT**: GridEntityTNT 代表可爆炸的 TNT 桶网格实体，通常通过 GridEntity.ToTNT() 获得，用于控制和检测 TNT 的状态。
+- **HUD**: 管理游戏 HUD 显示，包括刷新多玩家布局、控制充能条闪烁、更新缓存、显示物品拾取文字及控制可见性等核心 UI 功能。
+- **Input**: 提供对键盘、鼠标和控制器输入的全局访问，用于查询按键状态、动作力度以及鼠标坐标。
+- **Isaac**: Isaac 是《以撒的结合》忏悔版本提供的全局静态类，用于访问游戏核心功能，包括回调管理、实体查询、资源 ID 查找、时间与屏幕信息、生成事件、以及 MOD 存档数据检查等。所有方法通过点号调用，无需实例化。
+- **ItemConfig**: A central repository for retrieving game item configuration data, including collectibles, trinkets, cards, pills, and null items, with both individual ID lookups and (bugged) bulk lists. Also provides static validation and costume-checking utilities.
+- **ItemConfigCard**: ItemConfigCard 封装卡牌/符文的配置数据，包括名称、描述、解锁状态、类型标识及动画等元信息。
+- **ItemConfigCostume**: 提供道具服装配置的只读数据，包括动画路径、覆盖标志、备用皮肤、飞行状态、颜色覆盖、优先级和肤色等信息，用于 mod 中读取和判断道具的外观效果。
+- **ItemConfigItem**: Represents configuration data for a single item (collectible, trinket, or null item), providing access to its properties such as costs, hearts added, tags, quality, and unlock status.
+- **ItemConfigList**: 代表由 ItemConfig 返回的物品配置列表（如空物品或饰品）。提供列表长度查询功能，但按索引获取元素的方法存在 Bug，无法返回有效数据。
+- **ItemConfigPillEffect**: 代表一个药丸效果的配置信息，可通过ItemConfig.GetPillEffect()获取，提供可用性检查、解锁成就、播音员设置、ID、名称等只读属性。
+- **ItemPool**: ItemPool 类用于管理游戏中的各种物品池，包括道具、卡牌、药丸、饰品等，提供获取、添加、移除、黑名单控制及药丸鉴定等功能。
+- **KColor**: KColor 表示带透明度的 RGBA 颜色，主要用于 Font 类，提供构造函数、预定义颜色常量和分量读写变量。
+- **Level**: Level 类是当前楼层的核心接口，管理楼层阶段、房间布局、诅咒状态、地图效果以及恶魔/天使房概率等全局属性。
+- **Mod Reference**: Mod Reference 类代表通过 RegisterMod 注册的 mod 实例，提供回调注册、优先级控制与跨存档/跨游戏流程的持久化数据保存与加载功能。
+- **MusicManager**: MusicManager 用于控制游戏音乐的播放、切换、淡入淡出、暂停、恢复、音量调整、音调滑动以及音乐队列管理。
+- **Options**: Options 类代表用户 options.ini 文件中的设置值，用于读取和修改游戏选项，如 HUD、音量、显示方式等。
+- **PathFinder**: PathFinder 是用于控制非玩家角色（NPC）移动、路径规划和规避行为的工具类，提供了寻路、随机移动、逃避目标、路径检查等功能。
+- **PillConfigList**: 存储药丸效果列表的容器，提供数量获取和索引访问功能，但索引访问因Bug无法正常使用。
+- **PlayerTypesActiveItemDesc**: 表示玩家所持主动道具的状态信息，记录充能、电池充能、物品类型及额外数据。
+- **PlayerTypesPosVel**: 存储多方向射击时单个方向的位置和速度数据，由 EntityPlayer:GetMultiShotPositionVelocity() 返回。
+- **ProjectileParams**: ProjectileParams 是一个参数容器类，用于在发射投射物时传递自定义属性，如速度、颜色、碰撞、变化状态及扩散角度等，配合 EntityPlayer:FireProjectile 等函数使用。
+- **QueueItemData**: 代表玩家排队中的道具数据，包含充能状态、道具配置信息和是否已触摸的标记。
+- **RNG**: RNG 类提供基于 Xorshift 算法的确定性伪随机数生成。所有实例必须通过 SetSeed 设置非零种子和对应的 ShiftIdx 后才能用于随机数计算。广泛用于实体掉落、卡片、道具等需要种子的场景。
+- **Room**: 表示游戏中的当前房间，提供对房间内实体、网格、门、寻路、碰撞、状态等的全面访问，支持修改和查询房间内容。
+- **RoomConfigEntries**: 一个只读的 RoomConfigEntry 列表，表示某个房间生成点配置中的所有特定条目或变体。
+- **RoomConfigEntry**: 表示房间配置中一个实体生成条目的数据容器，记录了可能生成的实体类型、变体、子类型及其权重。
+- **RoomConfigRoom**: RoomConfigRoom provides read-only access to a room's configuration as defined in the room editor, including dimensions, door placements, spawn points, type identifiers, and weighting for procedural generation.
+- **RoomConfigSpawn**: 代表房间配置中的一个生成点，包含多个可能的生成条目及其权重，并可根据权重随机选取一个条目。
+- **RoomConfigSpawns**: 管理房间配置中所有可生成物（Spawn）的列表，提供数量查询和按索引获取具体生成物对象的功能。
+- **RoomDescriptor**: RoomDescriptor 存储一个房间的元数据和状态信息，包括房间类型、清理状态、生成种子、网格索引和商店相关数据等。
+- **RoomDescriptor**: RoomDescriptor 存储一个房间的元数据和状态信息，包括房间类型、清理状态、生成种子、网格索引和商店相关数据等。
+- **SFXManager**: 音效管理器，用于控制游戏中所有音效的播放、停止、音量调整、音高调整、循环音效与环境音效管理。
+- **Seeds**: 管理游戏种子的类，提供种子效果、起始种子、种子格式转换与运行类型判断等功能。
+- **Sprite**: The Sprite class manages loading, playing, and rendering of 2D animations from .anm2 files. It supports layers, overlays, frame‑by‑frame control, and visual transformations like flip, rotation, scaling, and color tint.
+- **TearParams**: 存储泪弹击中参数的数据结构，包含泪弹伤害、颜色、标记、变种、炸弹类型、高度和大小等属性，用于在回调中获取和传递泪弹状态。
+- **TemporaryEffect**: TemporaryEffect 表示一个临时的道具或饰品效果实例，包含其冷却时间、叠加层数以及对应的物品配置数据。
+- **TemporaryEffects**: 管理玩家身上的临时效果，包括道具效果(CollectibleEffect)、空物品效果(NullEffect)和饰品效果(TrinketEffect)。这些效果主要用于追踪物品内部状态（如神圣屏障层数）而非提供完整的物品能力。
+- **Vector**: Vector 类表示二维向量，提供构造、基本算术运算（加减乘除、取反）、长度与方向计算、线性插值、归范化、旋转、限制以及静态工厂方法等，是位置、速度、方向等建模的核心工具。
+- **VectorList**: 激光采样点的向量列表，用于存储 EntityLaser 的路径样本坐标。
+- **intValues**: intValues 是一个整数列表类，提供对一系列整数的存储和索引访问能力，通常用于获取游戏内部生成的随机数值或预定义整数序列。
+
+## Enums
+
+- ActionTriggers
+- ActiveSlot
+- BabySubType
+- BackdropType
+- BatterySubType
+- BedSubType
+- BombSubType
+- BombVariant
+- ButtonAction
+- CacheFlag
+- CallbackPriority
+- Card
+- Challenge
+- ChampionColor
+- ChestSubType
+- CoinSubType
+- CollectibleType
+- DamageFlag
+- Difficulty
+- Direction
+- DoorSlot
+- DoorState
+- DoorVariant
+- DrawStringAlignment
+- EffectVariant
+- EntityCollisionClass
+- EntityFlag
+- EntityGridCollisionClass
+- EntityPartition
+- EntityType
+- FamiliarVariant
+- GameStateFlag
+- GridCollisionClass
+- GridEntityType
+- GridRooms
+- HeartSubType
+- InputHook
+- ItemConfig
+- ItemPoolType
+- ItemType
+- KeySubType
+- Keyboard
+- LaserOffset
+- LaserSubType
+- LaserVariant
+- LevelCurse
+- LevelStage
+- LevelStateFlag
+- LocustSubtypes
+- ModCallbacks
+- Mouse
+- Music
+- NpcState
+- NullItemID
+- PickupPrice
+- PickupVariant
+- PillColor
+- PillEffect
+- PlayerForm
+- PlayerSpriteLayer
+- PlayerType
+- PoopPickupSubType
+- PoopSpellType
+- ProjectileFlags
+- ProjectileVariant
+- RenderMode
+- RoomDescriptor
+- RoomShape
+- RoomTransitionAnim
+- RoomType
+- SackSubType
+- SeedEffect
+- SkinColor
+- SortingLayer
+- SoundEffect
+- StageType
+- TearFlags
+- TearVariant
+- TrinketType
+- UseFlag
+- WeaponType
+
+## Tutorials
+
+- AddingCostumesWithoutLUA
+- CustomCallbacks
+- DebugConsole
+- ExampleProject
+- FunctionsInLua
+- GettingHelp
+- GoodPractices
+- MathAndLuaTips
+- Standard-Library
+- Tool_AnimationEditor
+- Tool_ItemPoolEditor
+- Tool_XMLValidator
+- Tools
+- Tutorial-Rendertext
+- Using-Additional-Lua-Files
+- Writingscreenshaders
+- ZeroBraneStudio
+- directories-and-save-files
+- mod-organization
+- storing-data

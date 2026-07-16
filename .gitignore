@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.env
+.venv/
+venv/
+.hf_cache/
+.pytest_cache/
+*.tmp.*
+Isaac-API/docs/customData/
+Isaac-API/docs/images/
+Isaac-API/scripts/
+Isaac-API/.github/

@@ -1,0 +1,80 @@
+---
+tags:
+  - Enum
+---
+# Enum "BabySubType"
+|DLC|Value|Enumerator|Comment|
+|:--|:--|:--|:--|
+|[ ](#)|-1 |BABY_UNASSIGNED  |  |
+|[ ](#)|0 |BABY_SPIDER  |  |
+|[ ](#)|1 |BABY_LOVE  |  |
+|[ ](#)|2 |BABY_BLOAT  |  |
+|[ ](#)|3 |BABY_WATER  |  |
+|[ ](#)|4 |BABY_PSY  |  |
+|[ ](#)|5 |BABY_CURSED  |  |
+|[ ](#)|6 |BABY_TROLL  |  |
+|[ ](#)|7 |BABY_YBAB  |  |
+|[ ](#)|8 |BABY_COCKEYED  |  |
+|[ ](#)|9 |BABY_HOST  |  |
+|[ ](#)|10 |BABY_LOST  |  |
+|[ ](#)|11 |BABY_CUTE  |  |
+|[ ](#)|12 |BABY_CROW  |  |
+|[ ](#)|13 |BABY_SHADOW  |  |
+|[ ](#)|14 |BABY_GLASS  |  |
+|[ ](#)|15 |BABY_GOLD  |  |
+|[ ](#)|16 |BABY_CY  |  |
+|[ ](#)|17 |BABY_BEAN  |  |
+|[ ](#)|18 |BABY_MAG  |  |
+|[ ](#)|19 |BABY_WRATH  |  |
+|[ ](#)|20 |BABY_WRAPPED  |  |
+|[ ](#)|21 |BABY_BEGOTTEN  |  |
+|[ ](#)|22 |BABY_DEAD  |  |
+|[ ](#)|23 |BABY_FIGHTING  |  |
+|[ ](#)|24 |BABY_0  |  |
+|[ ](#)|25 |BABY_GLITCH  |  |
+|[ ](#)|26 |BABY_MAGNET  |  |
+|[ ](#)|27 |BABY_BLACK  |  |
+|[ ](#)|28 |BABY_RED  |  |
+|[ ](#)|29 |BABY_WHITE  |  |
+|[ ](#)|30 |BABY_BLUE  |  |
+|[ ](#)|31 |BABY_RAGE  |  |
+|[ ](#)|32 |BABY_CRY  |  |
+|[ ](#)|33 |BABY_YELLOW  |  |
+|[ ](#)|34 |BABY_LONG  |  |
+|[ ](#)|35 |BABY_GREEN  |  |
+|[ ](#)|36 |BABY_LIL  |  |
+|[ ](#)|37 |BABY_BIG  |  |
+|[ ](#)|38 |BABY_BROWN  |  |
+|[ ](#)|39 |BABY_NOOSE  |  |
+|[ ](#)|40 |BABY_HIVE  |  |
+|[ ](#)|41 |BABY_BUDDY  |  |
+|[ ](#)|42 |BABY_COLORFUL  |  |
+|[ ](#)|43 |BABY_WHORE  |  |
+|[ ](#)|44 |BABY_CRACKED  |  |
+|[ ](#)|45 |BABY_DRIPPING  |  |
+|[ ](#)|46 |BABY_BLINDING  |  |
+|[ ](#)|47 |BABY_SUCKY  |  |
+|[ ](#)|48 |BABY_DARK  |  |
+|[ ](#)|49 |BABY_PICKY  |  |
+|[ ](#)|50 |BABY_REVENGE  |  |
+|[ ](#)|51 |BABY_BELIAL  |  |
+|[ ](#)|52 |BABY_SALE  |  |
+|[ ](#)|53 |BABY_GOAT  |  |
+|[ ](#)|54 |BABY_SUPER_GREED  |  |
+|[ ](#)|55 |BABY_MORT  |  |
+|[ ](#)|56 |BABY_APOLLYON  |  |
+|[ ](#)|57 |BABY_BONE  |  |
+|[ ](#)|58 |BABY_BOUND  |  |
+|[ ](#)|59 |BABY_FOUND_SOUL  |  |
+|[ ](#)|60 |BABY_LOST_WHITE  |  |
+|[ ](#)|61 |BABY_LOST_BLACK  |  |
+|[ ](#)|62 |BABY_LOST_BLUE  |  |
+|[ ](#)|63 |BABY_LOST_GREY  |  |
+|[ ](#)|64 |BABY_WISP  |  |
+|[ ](#)|65 |BABY_DOUBLE  |  |
+|[ ](#)|66 |BABY_GLOWING  |  |
+|[ ](#)|67 |BABY_ILLUSION  |  |
+|[ ](#)|68 |BABY_HOPE  |  |
+|[ ](#)|69 |BABY_SOLOMON_A  |  |
+|[ ](#)|70 |BABY_SOLOMON_B  |  |
+|[ ](#)|71 |BABY_BASIC  |  |

@@ -1,0 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Isaac RAG MCP Dev Container",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "..",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../Dockerfile"
+	},
+
+	// Run as non-root user (created by common-utils feature)
+	"remoteUser": "vscode",
+
+	// Persist HF model cache across rebuilds.
+	// Mounted to /app/.hf_cache (created in Dockerfile with 777 perms) so both
+	// the root build step and the vscode runtime can read/write without conflicts.
+	"mounts": [
+		"source=isaac-rag-hf-cache,target=/app/.hf_cache,type=volume"
+	],
+
+	// Dev container features
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:1": {
+			"installZsh": true,
+			"installOhMyZsh": false,
+			"upgradePackages": false,
+			"uid": "1000",
+			"gid": "1000",
+			"username": "vscode"
+		}
+	},
+
+	// Install dev dependencies (pytest) that aren't in the production Dockerfile
+	"postCreateCommand": "pip install pytest pytest-asyncio",
+
+	// VS Code customizations
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"python.analysis.extraPaths": ["/app/src"],
+				"python.testing.pytestEnabled": true
+			}
+		}
+	}
+}

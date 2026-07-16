@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "isaac-wiki-mcp"
+version = "0.2.0"
+description = "MCP server providing wiki-style full-text search over the Binding of Isaac modding API (llmwiki architecture, zero ML deps)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Isaac Wiki MCP", email = "dev@isaac-wiki.local"}
+]
+keywords = ["isaac", "modding", "wiki", "mcp", "llmwiki", "documentation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+
+dependencies = [
+    "loguru>=0.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.scripts]
+isaac-wiki = "isaac_wiki.cli:main"
+isaac-wiki-mcp = "isaac_wiki.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/isaac_wiki"]
+
+[tool.hatch.build.force-include]
+"data" = "isaac_wiki/data"
+"wiki" = "isaac_wiki/wiki"
