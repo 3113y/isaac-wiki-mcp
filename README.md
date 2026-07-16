@@ -1,6 +1,6 @@
 # isaac-wiki-mcp
 
-以撒的结合：Repentance 模组 API 文档的 **MCP 知识库服务器**。
+以撒的结合：忏悔(+) 模组 API 文档的 **MCP 知识库服务器**。
 
 采用 llmwiki 架构 —— 文件系统原生的 markdown 页面 + `[[wikilinks]]` 交叉引用。纯 Python 实现，零 ML 依赖，只依赖 `loguru` 一个包。
 
