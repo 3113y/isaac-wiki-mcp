@@ -1,0 +1,22 @@
+{
+  "id": "eid.item.add_description",
+  "kind": "method",
+  "signature": "EID:AddItemDescription(id, description)",
+  "variants": [
+    {
+      "id": "eid.item.add_description",
+      "relation": "extension",
+      "environment": {"game": "rep", "dependencies": ["eid"]},
+      "signature": "EID:AddItemDescription(id, description)",
+      "source": {
+        "repository_url": "https://github.com/wofsauge/External-Item-Descriptions",
+        "revision": "seed",
+        "source_path": "README.md"
+      },
+      "descriptions": {
+        "en": {"text": "Adds an item description.", "origin": "upstream"},
+        "zh": {"text": "添加道具说明。", "origin": "translated"}
+      }
+    }
+  ]
+}

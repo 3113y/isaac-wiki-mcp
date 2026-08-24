@@ -14,6 +14,7 @@ Exports:
 from isaac_wiki.facade import WikiFacade
 from isaac_wiki.wiki_engine import WikiEngine
 from isaac_wiki.wiki_builder import WikiBuilder
+from isaac_wiki.catalog_store import CatalogStore
 
 __version__ = "0.2.0"
-__all__ = ["WikiFacade", "WikiEngine", "WikiBuilder"]
+__all__ = ["CatalogStore", "WikiFacade", "WikiEngine", "WikiBuilder"]
