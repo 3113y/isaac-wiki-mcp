@@ -134,7 +134,7 @@ class WikiEngine:
         for md_file in self.wiki_dir.rglob("*.md"):
             try:
                 content = md_file.read_text(encoding="utf-8")
-                rel_path = str(md_file.relative_to(self.wiki_dir))
+                rel_path = md_file.relative_to(self.wiki_dir).as_posix()
                 self._index[rel_path] = content
                 self._page_meta[rel_path] = _parse_frontmatter(content)
                 count += 1
