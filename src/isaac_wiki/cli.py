@@ -67,6 +67,10 @@ def _build_parser() -> argparse.ArgumentParser:
     p.add_argument("--release", default="release.json")
     p.add_argument("--out", required=True)
 
+    p = sub.add_parser("translation-jobs", help="Build deterministic Luna job packets")
+    p.add_argument("--catalog", default="data/catalog")
+    p.add_argument("--out", required=True)
+
     return parser
 
 
@@ -120,6 +124,14 @@ def _dispatch(facade: WikiFacade, args: argparse.Namespace) -> dict[str, Any]:
         release = json.loads(release_path.read_text(encoding="utf-8"))
         export_site(CatalogStore(Path(args.catalog)), Path(args.out), release)
         return {"status": "ok", "output": args.out}
+    elif cmd == "translation-jobs":
+        from pathlib import Path
+        from isaac_wiki.catalog_store import CatalogStore
+        from isaac_wiki.translation_jobs import build_translation_jobs
+        jobs = build_translation_jobs(CatalogStore(Path(args.catalog)).entries())
+        payload = [job.__dict__ for job in jobs]
+        Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return {"status": "ok", "count": len(payload), "output": args.out}
     return {"status": "error", "error": f"Unknown command: {cmd}"}
 
 

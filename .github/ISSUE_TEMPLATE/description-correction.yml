@@ -1,0 +1,32 @@
+name: Description correction
+description: Correct a Chinese translation, LLM inference, or documented source erratum.
+title: "description: "
+labels: ["description-correction"]
+body:
+  - type: input
+    id: entry_id
+    attributes:
+      label: Entry and variant ID
+      description: Example: `player.add_hearts` / `rgon.player.add_hearts`.
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options: [zh, en]
+    validations:
+      required: true
+  - type: textarea
+    id: corrected_text
+    attributes:
+      label: Corrected description
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source and rationale
+      description: Link the upstream source or explain the inference correction. API signatures and source facts cannot be edited here.
+    validations:
+      required: true
