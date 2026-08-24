@@ -1,0 +1,32 @@
+{
+  "vanilla-rep": {
+    "repository_url": "https://github.com/cuerzor/IsaacDocs",
+    "docs_path": "docs",
+    "game": "rep",
+    "dependencies": []
+  },
+  "vanilla-rep-plus": {
+    "repository_url": "https://github.com/cuerzor/IsaacDocs",
+    "docs_path": "docs",
+    "game": "rep+",
+    "dependencies": []
+  },
+  "rgon": {
+    "repository_url": "https://github.com/3113y/REPGON_Docs-Trans-zh_cn",
+    "docs_path": "docs/docs",
+    "game": "rep",
+    "dependencies": ["rgon"]
+  },
+  "rgon-plus": {
+    "repository_url": "https://github.com/TeamREPENTOGON/REPENTOGON",
+    "docs_path": "docs",
+    "game": "rep+",
+    "dependencies": ["rgon+"]
+  },
+  "eid": {
+    "repository_url": "https://github.com/wofsauge/External-Item-Descriptions",
+    "docs_path": "features/eid_api.lua",
+    "game": "rep",
+    "dependencies": ["eid"]
+  }
+}
