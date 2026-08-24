@@ -36,16 +36,19 @@ def _build_parser() -> argparse.ArgumentParser:
     p.add_argument("--top-k", type=int, default=5)
     p.add_argument("--category", choices=["classes", "enums", "tutorials"], default=None)
     p.add_argument("--format", choices=["text", "json"], default="text")
+    _add_profile_arguments(p)
 
     # read
     p = sub.add_parser("read", help="Read a complete wiki page")
     p.add_argument("page", help="Page name (e.g. EntityPlayer, classes/Game)")
     p.add_argument("--format", choices=["text", "json"], default="text")
+    _add_profile_arguments(p)
 
     # list
     p = sub.add_parser("list", help="List wiki pages by category")
     p.add_argument("--category", choices=["classes", "enums", "tutorials"], default=None)
     p.add_argument("--format", choices=["text", "json"], default="text")
+    _add_profile_arguments(p)
 
     # stats
     p = sub.add_parser("stats", help="Show wiki statistics")
@@ -57,14 +60,27 @@ def _build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _add_profile_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--game", choices=["rep", "rep+"], default=None)
+    parser.add_argument(
+        "--dependency",
+        dest="dependencies",
+        action="append",
+        choices=["rgon", "rgon+", "eid"],
+        default=[],
+    )
+    parser.add_argument("--language", choices=["auto", "zh", "en"], default="auto")
+    parser.add_argument("--include-incompatible", action="store_true")
+
+
 def _dispatch(facade: WikiFacade, args: argparse.Namespace) -> dict[str, Any]:
     cmd = args.command
     if cmd == "search":
-        return facade.search(args.query, top_k=args.top_k, category=args.category)
+        return facade.search(args.query, top_k=args.top_k, category=args.category, game=args.game, dependencies=args.dependencies, language=args.language, include_incompatible=args.include_incompatible)
     elif cmd == "read":
-        return facade.read_page(args.page)
+        return facade.read_page(args.page, game=args.game, dependencies=args.dependencies, language=args.language, include_incompatible=args.include_incompatible)
     elif cmd == "list":
-        return facade.list_pages(category=args.category)
+        return facade.list_pages(category=args.category, game=args.game, dependencies=args.dependencies, language=args.language, include_incompatible=args.include_incompatible)
     elif cmd == "stats":
         return facade.stats()
     elif cmd == "build":

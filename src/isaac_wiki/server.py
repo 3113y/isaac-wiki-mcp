@@ -55,6 +55,33 @@ def _get_facade() -> WikiFacade:
 # ---------------------------------------------------------------------------
 # MCP tool definitions
 # ---------------------------------------------------------------------------
+PROFILE_PROPERTIES = {
+    "game": {
+        "type": "string",
+        "enum": ["rep", "rep+"],
+        "description": "Target game API version. Supplying this enables catalog-aware results.",
+    },
+    "dependencies": {
+        "type": "array",
+        "items": {"type": "string", "enum": ["rgon", "rgon+", "eid"]},
+        "uniqueItems": True,
+        "default": [],
+        "description": "Enabled mod dependencies for this project.",
+    },
+    "language": {
+        "type": "string",
+        "enum": ["auto", "zh", "en"],
+        "default": "auto",
+        "description": "Result language; auto follows the query language.",
+    },
+    "include_incompatible": {
+        "type": "boolean",
+        "default": False,
+        "description": "Include unavailable variants and mark them compatible=false.",
+    },
+}
+
+
 TOOLS = [
     {
         "name": "wiki_search",
@@ -83,6 +110,7 @@ TOOLS = [
                     "enum": ["classes", "enums", "tutorials"],
                     "description": "Limit search to a page category.",
                 },
+                **PROFILE_PROPERTIES,
             },
             "required": ["query"],
         },
@@ -101,6 +129,7 @@ TOOLS = [
                     "type": "string",
                     "description": "Page name or path. Examples: 'EntityPlayer', 'Game', 'enums/EntityType'.",
                 },
+                **PROFILE_PROPERTIES,
             },
             "required": ["page"],
         },
@@ -119,6 +148,7 @@ TOOLS = [
                     "enum": ["classes", "enums", "tutorials"],
                     "description": "Filter by category.",
                 },
+                **PROFILE_PROPERTIES,
             },
         },
     },
@@ -181,14 +211,26 @@ def _handle(request: dict[str, Any]) -> None:
                     query=arguments.get("query", ""),
                     top_k=arguments.get("top_k", 5),
                     category=arguments.get("category"),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies", []),
+                    language=arguments.get("language", "auto"),
+                    include_incompatible=arguments.get("include_incompatible", False),
                 )
             elif tool_name == "wiki_read":
                 result = facade.read_page(
                     page=arguments.get("page", ""),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies", []),
+                    language=arguments.get("language", "auto"),
+                    include_incompatible=arguments.get("include_incompatible", False),
                 )
             elif tool_name == "wiki_list":
                 result = facade.list_pages(
                     category=arguments.get("category"),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies", []),
+                    language=arguments.get("language", "auto"),
+                    include_incompatible=arguments.get("include_incompatible", False),
                 )
             elif tool_name == "wiki_stats":
                 result = facade.stats()

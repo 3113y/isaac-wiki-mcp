@@ -4,6 +4,12 @@
 
 采用 llmwiki 架构 —— 文件系统原生的 markdown 页面 + `[[wikilinks]]` 交叉引用。纯 Python 实现，零 ML 依赖，只依赖 `loguru` 一个包。
 
+## 双语、版本感知目录
+
+原有 Markdown Wiki 仍是默认查询来源。指定 `game=rep` 或 `game=rep+` 后，查询会切换到结构化目录；可选依赖为 `rgon`、`rgon+`、`eid`，结果语言可选 `auto`、`zh`、`en`。RGON/RGON+ 覆盖会替代相同的原版 API，EID 则始终作为独立扩展。`include_incompatible=true` 仅用于比较不可用条目，返回结果会标记 `compatible: false`。
+
+LLM 推断描述会在正文末尾附上明确说明。每个目录结果都包含上游仓库、修订版本和源文件。需要纠正翻译或推断时，请提交 issue 或 PR，并附上条目 ID、语言、建议文本、来源及理由；上游原文与修订信息保持不可修改。
+
 ## 解决了什么问题
 
 用 AI 写以撒模组时，LLM 会编造不存在的 API 方法名和参数。这个项目把 72 个类、1,554 个方法的完整 API 文档做成了可搜索的知识库，让 AI 能查到**完整的类页面**（不是碎片化的 chunk），避免幻觉。
