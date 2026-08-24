@@ -1,0 +1,31 @@
+name: Weekly verified documentation release
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest tests -q
+      - run: isaac-wiki build-release-manifest --out release.json
+      - run: isaac-wiki export-site --release release.json --out site-release
+      - name: Synchronize verified release to GitHub Pages source
+        env:
+          ISAAC_LLM_WIKI_DEPLOY_TOKEN: ${{ secrets.ISAAC_LLM_WIKI_DEPLOY_TOKEN }}
+        run: |
+          git clone "https://x-access-token:${ISAAC_LLM_WIKI_DEPLOY_TOKEN}@github.com/3113y/isaac-llm-wiki.git" site-repository
+          rsync -a --delete site-release/ site-repository/docs/generated/
+          cp release.json site-repository/docs/assets/release.json
+          git -C site-repository config user.name "isaac-wiki-release-bot"
+          git -C site-repository config user.email "isaac-wiki-release-bot@users.noreply.github.com"
+          git -C site-repository add docs
+          git -C site-repository diff --cached --quiet || git -C site-repository commit -m "docs: weekly verified API release"
+          git -C site-repository push
