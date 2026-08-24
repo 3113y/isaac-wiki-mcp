@@ -16,7 +16,7 @@ def write_entry(tmp_path, *, source=SOURCE_URL, dependency="eid", **changes):
         "signature": "EID:AddItemDescription(id, description)",
         "source": {
             "repository_url": source,
-            "revision": "0123456789abcdef",
+            "revision": "a" * 40,
             "source_path": "docs/api.md",
         },
         "descriptions": {
@@ -52,6 +52,12 @@ def test_store_rejects_missing_source_revision(tmp_path):
     write_entry(tmp_path, variant={"source": {"repository_url": SOURCE_URL, "source_path": "docs/api.md"}})
 
     assert any("revision" in error for error in CatalogStore(tmp_path).validate())
+
+
+def test_store_rejects_non_immutable_source_revision(tmp_path):
+    write_entry(tmp_path, variant={"source": {"repository_url": SOURCE_URL, "revision": "main", "source_path": "docs/api.md"}})
+
+    assert any("40-character" in error for error in CatalogStore(tmp_path).validate())
 
 
 def test_store_rejects_missing_chinese_translation(tmp_path):

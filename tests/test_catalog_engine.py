@@ -19,7 +19,7 @@ def _write_entry(directory, *, entry_id="UndocumentedMethod", dependency=None, o
                 "signature": "EntityPlayer:UndocumentedMethod()",
                 "source": {
                     "repository_url": "https://example.invalid/source",
-                    "revision": "test",
+                    "revision": "a" * 40,
                     "source_path": "api.md",
                 },
                 "descriptions": {
@@ -65,7 +65,7 @@ def test_rgon_override_replaces_base_and_eid_is_profile_gated(tmp_path):
                 "relation": "base",
                 "environment": {"game": "rep", "dependencies": []},
                 "signature": "EntityPlayer:AddHearts(amount)",
-                "source": {"repository_url": "https://example.invalid/rep", "revision": "r", "source_path": "api.md"},
+                "source": {"repository_url": "https://example.invalid/rep", "revision": "a" * 40, "source_path": "api.md"},
                 "descriptions": {"en": {"text": "Base hearts.", "origin": "upstream"}, "zh": {"text": "基础心之容器。", "origin": "translated"}},
             },
             {
@@ -74,7 +74,7 @@ def test_rgon_override_replaces_base_and_eid_is_profile_gated(tmp_path):
                 "overrides": "player.add_hearts",
                 "environment": {"game": "rep", "dependencies": ["rgon"]},
                 "signature": "EntityPlayer:AddHearts(amount)",
-                "source": {"repository_url": "https://example.invalid/rgon", "revision": "r", "source_path": "api.md"},
+                "source": {"repository_url": "https://example.invalid/rgon", "revision": "b" * 40, "source_path": "api.md"},
                 "descriptions": {"en": {"text": "RGON hearts.", "origin": "upstream"}, "zh": {"text": "RGON 心之容器。", "origin": "translated"}},
             },
         ],
@@ -97,4 +97,3 @@ def test_include_incompatible_marks_unavailable_variants(tmp_path):
     results = engine.search("generated", profile, "en", include_incompatible=True)
 
     assert results[0]["compatible"] is False
-

@@ -10,7 +10,7 @@
       "signature": "EID:AddItemDescription(id, description)",
       "source": {
         "repository_url": "https://github.com/wofsauge/External-Item-Descriptions",
-        "revision": "seed",
+        "revision": "b6010e390ef2f429d4d4659974a5d505fba89b43",
         "source_path": "README.md"
       },
       "descriptions": {

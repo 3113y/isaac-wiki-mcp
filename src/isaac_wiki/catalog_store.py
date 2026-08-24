@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -185,6 +186,8 @@ class CatalogStore:
                     errors.append(f"{prefix}: source.repository_url is required")
                 if not variant.source.revision:
                     errors.append(f"{prefix}: source.revision is required")
+                elif not re.fullmatch(r"[0-9a-f]{40}", variant.source.revision):
+                    errors.append(f"{prefix}: source.revision must be a 40-character Git SHA")
                 if variant.source.source_path is None:
                     errors.append(f"{prefix}: source.source_path is required")
                 for language in ("en", "zh"):
