@@ -57,6 +57,16 @@ def _build_parser() -> argparse.ArgumentParser:
     # build
     p = sub.add_parser("build", help="Rebuild wiki pages from data sources")
 
+    p = sub.add_parser("build-release-manifest", help="Write a verified release manifest")
+    p.add_argument("--catalog", default="data/catalog")
+    p.add_argument("--source-lock", default="data/sources/lock.json")
+    p.add_argument("--out", default="release.json")
+
+    p = sub.add_parser("export-site", help="Export paired bilingual Markdown pages")
+    p.add_argument("--catalog", default="data/catalog")
+    p.add_argument("--release", default="release.json")
+    p.add_argument("--out", required=True)
+
     return parser
 
 
@@ -96,6 +106,20 @@ def _dispatch(facade: WikiFacade, args: argparse.Namespace) -> dict[str, Any]:
                 f"{stats['tutorials']} tutorials"
             ),
         }
+    elif cmd == "build-release-manifest":
+        from pathlib import Path
+        from isaac_wiki.release_manifest import build_release_manifest
+        manifest = build_release_manifest(Path(args.catalog), Path(args.source_lock))
+        Path(args.out).write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        return {"status": "ok", "manifest": manifest}
+    elif cmd == "export-site":
+        from pathlib import Path
+        from isaac_wiki.catalog_store import CatalogStore
+        from isaac_wiki.site_export import export_site
+        release_path = Path(args.release)
+        release = json.loads(release_path.read_text(encoding="utf-8"))
+        export_site(CatalogStore(Path(args.catalog)), Path(args.out), release)
+        return {"status": "ok", "output": args.out}
     return {"status": "error", "error": f"Unknown command: {cmd}"}
 
 
