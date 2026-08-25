@@ -10,4 +10,6 @@ def test_weekly_release_is_verified_and_targets_static_site_repository():
     assert "isaac-wiki export-site" in workflow
     assert "3113y/isaac-llm-wiki" in workflow
     assert "ISAAC_LLM_WIKI_DEPLOY_TOKEN" in workflow
+    assert "site-repository/docs/en/" in workflow
+    assert "site-repository/docs/zh/" in workflow
     assert "OPENAI_API_KEY" not in workflow
