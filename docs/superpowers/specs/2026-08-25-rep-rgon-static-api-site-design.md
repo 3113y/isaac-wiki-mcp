@@ -6,7 +6,7 @@
 
 `3113y/isaac-wiki-mcp` 是唯一的内容与版本事实来源，并继续仅面向 LLM 发布 MCP 工具与结构化知识库。人类站点不承载 MCP 服务、模型逻辑或手工维护的 API 正文。
 
-本期不处理 AB+。`ALL DLCs` 表示条目同时兼容 REP 与 REP+，且不依赖 RGON 或 RGON+。
+本期永远不处理 AB 或 AB+，也不提供它们的内容或环境切换。`ALL DLCs` 是历史兼容性标记，表示条目同时支持 AB、AB+、REP 与 REP+；它不表示 RGON 或 RGON+ 依赖。
 
 ## 仓库职责与发布边界
 
@@ -41,7 +41,7 @@ isaac-api-wiki：MkDocs 静态站构建与 GitHub Pages 部署
 2. 当基础版本为 `REP` 时，可选扩展为“原版”或 `RGON`。
 3. 当基础版本为 `REP+` 时，可选扩展为“原版”或 `RGON+`。
 4. `RGON` 只能依赖 `REP`；`RGON+` 只能依赖 `REP+`。违规组合不得生成或在前端启用。
-5. `ALL DLCs` 仅代表基础 API 同时支持 REP 与 REP+，无扩展依赖。
+5. `ALL DLCs` 是跨 AB、AB+、REP 与 REP+ 的历史兼容性标记；站点只将其作为徽章展示，不会据此生成 AB 或 AB+ 内容、页面或环境。
 
 RGON 或 RGON+ 的同名 API 只有在来源明确证明其替换基础 API 时才能标为覆盖。覆盖条目必须显示其基础条目链接和“覆盖基础 API”提示；同名不能作为推断覆盖关系的依据。
 
