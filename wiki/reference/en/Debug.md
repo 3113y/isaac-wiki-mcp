@@ -1,0 +1,39 @@
+---
+tags:
+  - Global
+  - Class
+---
+> Documentation prose polished by a constrained language model; API facts and signatures retain their upstream source.
+
+# Global Class "Debug"
+
+???+ info
+    Access this class through the `Debug` global table.
+
+    **Note that to call these functions, you must use a `.` (period) instead of a `:` (colon)!**
+    
+    ???+ example "Example Code"
+        ```lua
+        local loadedFiles = Debug.ListLoadedFiles()
+        ```
+        
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### ForceUnload () {: aria-label='Functions' }
+#### void ForceUnload ( string ModuleName ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetSignature () {: aria-label='Functions' }
+#### string GetSignature ( int Address ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### ListLoadedFiles () {: aria-label='Functions' }
+#### string[] ListLoadedFiles ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns a list of all files loaded in the Lua environment.
+___
+
+</div>

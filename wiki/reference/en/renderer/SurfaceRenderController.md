@@ -1,0 +1,31 @@
+---
+tags:
+  - Class
+---
+> Documentation prose polished by a constrained language model; API facts and signatures retain their upstream source.
+
+# Class "SurfaceRenderController"
+
+???+ info
+    You can only get this class when using [Renderer.RenderToImage](Renderer.md#rendertoimage)(). 
+    The class is invalidated at the end of the Render.
+
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### Clear () {: aria-label='Functions' }
+#### void Clear ( ) {: .copyable aria-label='Functions' }   [ ](#){: .rgonplus .tooltip .badge }
+
+Clears the current render target's contents and resets BlendMode to BlendType.NORMAL.
+
+___
+
+### SetBlendMode () {: aria-label='Functions'}
+#### void SetBlendMode ( [BlendMode](BlendMode.md) blendMode ) {: .copyable aria-label='Functions' }   [ ](#){: .rgonplus .tooltip .badge }
+
+Sets the blend mode for future renders.
+
+__
+
+</div>

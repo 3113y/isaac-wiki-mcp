@@ -1,0 +1,29 @@
+# Enum "StatusEffect"
+
+<div class="rgon-only" markdown="1">
+
+[ ](#){: .rgonorplus .tooltip .badge }
+
+## RGON additions
+
+|Value|Enumerator|Comment|
+|:--|:--|:--|
+|0 |BAITED {: .copyable } |  |
+|1 |BLEEDING {: .copyable } |  |
+|2 |BRIMSTONE_MARK {: .copyable } |  |
+|3 |BURN {: .copyable } |  |
+|4 |CHARMED {: .copyable } |  |
+|5 |CONFUSION {: .copyable } |  |
+|6 |FEAR {: .copyable } |  |
+|7 |FREEZE {: .copyable } |  |
+|8 |ICE {: .copyable } |  |
+|9 |KNOCKBACK {: .copyable } |  |
+|10 |MAGNETIZED  {: .copyable } |  |
+|11 |MIDAS_FREEZE  {: .copyable } |  |
+|12 |POISON  {: .copyable } |  |
+|13 |SHRINK  {: .copyable } |  |
+|14 |SLOWING  {: .copyable } |  |
+|15 |WEAKNESS  {: .copyable } |  |
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+</div>

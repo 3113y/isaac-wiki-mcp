@@ -1,0 +1,58 @@
+---
+tags:
+  - Class
+---
+# Class "LevelGeneratorRoom"
+
+???+ info
+    This class is used during level generation. Its purpose is to represent a slot in the graph of rooms that is generated during the generation phase.
+    
+    This class is immutable and cannot be instantiated manually: you cannot change the values of an instance's fields or create an instance yourself.
+    
+    Access to instances is always performed through methods of the [LevelGenerator](LevelGenerator.md) itself, or instances are given as parameters of the callbacks:  
+    
+    * [MC_PRE_LEVEL_PLACE_ROOM](enums/ModCallbacks.md#mc_pre_level_place_room)
+
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### Column () {: aria-label='Functions' }
+#### int Column ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Return the column of the room slot on the level grid (the index is zero-based).
+
+### DoorMask () {: aria-label='Functions' }
+#### int DoorMask ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+print("Room has a door in slot LEFT0")
+This tests if the DoorSlot `LEFT0` is available.
+Return a mask of the available doors of the room slot.
+if room:DoorMask() & (1 << DoorSlot.LEFT0) ~= 0 then
+In order to check if a door at a given slot is available, use the DoorSlot enumeration.
+```lua
+end
+???+ example "Example"
+```
+
+### GenerationIndex () {: aria-label='Functions' }
+#### int GenerationIndex ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Index of the room during generation: `0` if the room was the first to be generated, `1` if it was the second etc.
+
+### IsDeadEnd () {: aria-label='Functions' }
+#### boolean IsDeadEnd ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### Neighbors () {: aria-label='Functions' }
+#### int[] Neighbors ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns a table of the generation indices of the neighboring rooms.
+
+### Row () {: aria-label='Functions' }
+#### int Row ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Return the row of the room slot on the level grid (the index is zero-based).
+
+### Shape () {: aria-label='Functions' }
+#### int Shape ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Return the shape of the room, as per the RoomShape enumeration.
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+</div>

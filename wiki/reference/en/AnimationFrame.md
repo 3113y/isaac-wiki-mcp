@@ -1,0 +1,84 @@
+---
+tags:
+  - Class
+---
+> Documentation prose polished by a constrained language model; API facts and signatures retain their upstream source.
+
+# Class "AnimationFrame"
+
+Cached data for a single frame of one animation layer from an ANM2 file. It is shared by all Sprites that use the same ANM2 and cannot be modified.
+
+Note that interpolation and root animations have already been baked into these values.
+
+Additionally, these values correspond to those shown in the ANM2 editor and use the same names.
+
+Obtained via [AnimationLayer:GetFrame()](AnimationLayer.md#getframe).
+
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### GetColor () {: aria-label='Functions' }
+#### [const Color](Color.md) GetColor ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetCrop () {: aria-label='Functions' }
+#### [const Vector](Vector.md) GetCrop ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetEndFrame () {: aria-label='Functions' }
+#### int GetEndFrame ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+The "end frame" is the start frame of the next AnimationFrame.
+
+This AnimationFrame is no longer displayed from that frame onward.
+
+___
+
+### GetHeight () {: aria-label='Functions' }
+#### float GetHeight ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetPivot () {: aria-label='Functions' }
+#### [const Vector](Vector.md) GetPivot ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetPos () {: aria-label='Functions' }
+#### [const Vector](Vector.md) GetPos ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetRotation () {: aria-label='Functions' }
+#### float GetRotation ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetScale () {: aria-label='Functions' }
+#### [const Vector](Vector.md) GetScale ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetStartFrame () {: aria-label='Functions' }
+#### int GetStartFrame ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### GetWidth () {: aria-label='Functions' }
+#### float GetWidth ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### IsInterpolated () {: aria-label='Functions' }
+#### boolean IsInterpolated ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### IsVisible () {: aria-label='Functions' }
+#### boolean IsVisible ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+</div>

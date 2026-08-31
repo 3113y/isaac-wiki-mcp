@@ -1,0 +1,64 @@
+---
+tags:
+  - Class
+---
+# Class "FXParams"
+
+???+ info
+    You can get this class by using the following functions:
+
+    * [Room:GetFXParams()](Room.md#getfxparams)
+
+    ???+ example "Example Code"
+        ```lua
+        local fxparams = Game():GetRoom():GetFXParams()
+        ```
+
+## Variables
+
+<div class="rgon-only" markdown="1">
+
+### ColorModifier {: aria-label='Variables' }
+#### [ColorModifier](ColorModifier.md) ColorModifier [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+Gets a modifiable copy of the color correction introduced in Repentance. This stores the values used in `fxlayers.xml` and not the raw values (see [GetCurrentColorModifier](Game.md#getcurrentcolormodifier) for this).
+
+Changes made here are _not_ applied automatically; use [UpdateColorModifier](Room.md#updatecolormodifier) to apply them.
+___
+
+### LightColor {: aria-label='Variables' }
+#### [KColor](https://wofsauge.github.io/IsaacDocs/rep/KColor.html) LightColor [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+### ShadowAlpha {: aria-label='Variables' }
+#### float ShadowAlpha [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+### ShadowColor {: aria-label='Variables' }
+#### [KColor](https://wofsauge.github.io/IsaacDocs/rep/KColor.html) ShadowColor [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+### UseWaterV2 {: aria-label='Variables' }
+#### boolean UseWaterV2 [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+If set, water will use the reflective shader featured in Downpour and Dross.
+
+___
+
+### WaterColor {: aria-label='Variables' }
+#### [KColor](https://wofsauge.github.io/IsaacDocs/rep/KColor.html) WaterColor [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+### WaterColorMultiplier {: aria-label='Variables' }
+#### [KColor](https://wofsauge.github.io/IsaacDocs/rep/KColor.html) WaterColorMultiplier [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+### WaterEffectColor {: aria-label='Variables' }
+#### [Color](Color.md) WaterEffectColor [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Variables'}
+
+___
+
+</div>

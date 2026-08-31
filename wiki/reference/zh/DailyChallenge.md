@@ -1,0 +1,34 @@
+---
+tags:
+  - Global
+  - Class
+---
+# Global Class "DailyChallenge"
+
+???+ info
+
+    你可以通过 `DailyChallenge` 全局表获取这个类.
+    
+    **注意：调用这些函数时，必须使用 .（句点）而非 :（冒号）！**
+    
+    ???+ example "Example Code"
+    
+        ```lua
+        local dailyparams = DailyChallenge.GetChallengeParams()
+        ```
+
+???+ warning "Warning"
+
+    在游戏完全初始化之前，不应调用此类的函数！请确保不要在回调函数之外调用它们.
+    
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### GetChallengeParams () {: aria-label='Functions' }
+#### [ChallengeParam](ChallengeParam.md) GetChallengeParams ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+</div>

@@ -1,6 +1,6 @@
 # isaac-wiki-mcp
 
-以撒的结合：忏悔(+) 模组 API 文档的 **MCP 知识库服务器**。
+以撒的结合：忏悔(+) 模组 API 文档的 **MCP 知识库服务器**。内置锁定版本的 [Isaac API Edition](https://github.com/3113y/isaac-api-edition) 双语 Markdown 快照，可在每次请求中明确选择 REP、REP+ 与 RGON。
 
 采用 llmwiki 架构 —— 文件系统原生的 markdown 页面 + `[[wikilinks]]` 交叉引用。纯 Python 实现，零 ML 依赖，只依赖 `loguru` 一个包。
 
@@ -44,10 +44,25 @@ pip install isaac-wiki-mcp
 
 | 工具 | 功能 |
 |------|------|
-| `wiki_search` | 全文搜索，返回完整页面内容（不是片段） |
-| `wiki_read` | 按名称读取完整类文档，如 `EntityPlayer` |
-| `wiki_list` | 按分类列出页面（classes / enums / tutorials） |
+| `wiki_search` | 全文搜索，按语言与 API 配置返回完整页面内容（不是片段） |
+| `wiki_read` | 按名称读取完整页面，如 `EntityPlayer` 或 `enums/EntityType` |
+| `wiki_list` | 按分类、语言与 API 配置列出页面 |
 | `wiki_stats` | 查看知识库统计数据 |
+| `wiki_sources` | 查看打包快照的来源仓库、锁定 revision 与支持的配置 |
+
+`wiki_search`、`wiki_read` 与 `wiki_list` 接受这些可选参数：
+
+```json
+{
+  "game": "rep",
+  "dependencies": ["rgon"],
+  "language": "en"
+}
+```
+
+- `game`：`rep` 或 `rep+`；未指定时为 `rep`。
+- `dependencies`：目前仅支持 `rgon`。未启用时返回内容会移除 RGON 覆写/新增块。
+- `language`：`en`、`zh` 或 `auto`。`auto` 仅按查询文本保守判断；需要英文原文时请明确传 `en`。
 
 ## 命令行
 
@@ -57,6 +72,9 @@ isaac-wiki read EntityPlayer
 isaac-wiki list --category classes
 isaac-wiki stats
 isaac-wiki build          # 从数据源重建 wiki
+isaac-wiki search "knockback" --game rep --language en
+isaac-wiki read Entity --game rep+ --dependency rgon --language zh
+isaac-wiki sync-reference /path/to/isaac-api-edition
 ```
 
 ## 数据规模
@@ -81,14 +99,18 @@ src/isaac_wiki/
   server.py         — MCP stdio 服务器（4 个工具）
   cli.py            — 命令行工具
 
-wiki/               — 生成的 markdown 页面（~1.3MB）
+wiki/               — 生成的 markdown 页面与 API Edition 快照
   classes/          — 71 个类页面，含 [[wikilinks]]
   enums/            — 81 个枚举参考页
   tutorials/        — 20 个教程
   index.md          — 全局导航
   llms.txt          — AI 可消费的摘要（llmstxt.org 规范）
+  reference/
+    en/             — 英文原文优先的 API Edition 快照
+    zh/             — 中文 API Edition 快照
+    source-release.json — 锁定来源 revision 与上游清单
 
-data/               — 源数据（wiki_builder 的输入）
+data/               — 旧 Wiki 构建输入与版本化 catalog 种子
 ```
 
 ## 开发

@@ -1,0 +1,45 @@
+---
+tags:
+  - Class
+---
+# Class "AnimationData"
+
+已加载的 ANM2 文件中一个动画的缓存数据。由所有使用相同 ANM2 的精灵共享，且不可修改。
+
+可通过以下方法获取：[Sprite:GetAnimationData()](Sprite.md#getanimationdata)、[Sprite:GetCurrentAnimationData()](Sprite.md#getanimationdata) 或 [Sprite:GetOverlayAnimationData()](Sprite.md#getanimationdata)。
+
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### GetAllLayers () {: aria-label='Functions' }
+#### [AnimationLayer](AnimationLayer.md)[] GetAllLayers ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+返回一个动画层（AnimationLayer）表，按从下到上的顺序排列（**不**按层 ID 排序）。
+
+___
+
+### GetLayer () {: aria-label='Functions' }
+#### [AnimationLayer](AnimationLayer.md) GetLayer ( int LayerId ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+通过动画层的 ID 获取一个动画层。
+
+___
+
+### GetLength () {: aria-label='Functions' }
+#### int GetLength ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+此动画的帧数长度。### GetName () {: aria-label='Functions' }
+#### string GetName ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+### IsLoopingAnimation () {: aria-label='Functions' }
+#### boolean IsLoopingAnimation ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+### GetName () {: aria-label='Functions' }
+#### string GetName ( ) [ ](#){: .rgonplus .tooltip .badge } {: .copyable aria-label='Functions' }
+
+___
+
+</div>

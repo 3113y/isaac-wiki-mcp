@@ -1,0 +1,35 @@
+---
+tags:
+  - Global
+  - Class
+---
+# Global Class "ProceduralItemManager"
+
+???+ info
+    You can get this class by using the `ProceduralItemManager` global table.
+
+    **注意：调用这些函数时，必须使用 .（句点）而非 :（冒号）！**
+    
+    ???+ example "Example Code"
+        ```lua
+        local pItem = ProceduralItemManager.GetProceduralItem(0)
+        ```
+
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### CreateProceduralItem () {: aria-label='Functions' }
+#### int CreateProceduralItem ( int Seed, int Unknown ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the negative ID of the created item.
+Creates a glitch item based on the specified seed.
+
+### GetProceduralItem () {: aria-label='Functions' }
+#### [ProceduralItem](ProceduralItem.md) GetProceduralItem ( int Index ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Retrieves the glitch item at the specified index.
+
+### GetProceduralItemCount () {: aria-label='Functions' }
+#### int GetProceduralItemCount ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+___
+
+</div>

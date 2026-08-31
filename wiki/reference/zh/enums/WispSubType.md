@@ -1,0 +1,33 @@
+# Enum "WispSubType"
+
+<div class="rgon-only" markdown="1">
+
+[ ](#){: .rgonorplus .tooltip .badge }
+
+## RGON additions
+
+|Value|Enumerator|Comment|
+|:--|:--|:--|
+|65536 |SPECIAL_FLAG {: .copyable } |  |
+|65536 |NOTCHED_AXE_COAL {: .copyable } | 0 &#124; SPECIAL_FLAG |
+|65537 |NOTCHED_AXE_IRON {: .copyable } | 1 &#124; SPECIAL_FLAG |
+|65538 |NOTCHED_AXE_GOLD {: .copyable } | etc |
+|65539 |NOTCHED_AXE_DIAMON {: .copyable } |  |
+|65540 |NOTCHED_AXE_REDSTONE {: .copyable } |  |
+|65541 |JAR_OF_FLIES_1 {: .copyable } |  |
+|65542 |JAR_OF_FLIES_2 {: .copyable } |  |
+|65543 |JAR_OF_FLIES_3 {: .copyable } |  |
+|65544 |JAR_OF_FLIES_4 {: .copyable } |  |
+|65545 |JAR_OF_FLIES_5 {: .copyable } |  |
+|65546 |FRIENDLY_BALL_NORMAL {: .copyable } |  |
+|65547 |FRIENDLY_BALL_EXPLOSIVE {: .copyable } |  |
+|65548 |FRIENDLY_BALL_HOMING {: .copyable } |  |
+|65549 |FRIENDLY_BALL_BRIMSTONE {: .copyable } |  |
+|65550 |DELIRIOUS_MONSTRO {: .copyable } |  |
+|65551 |DELIRIOUS_DUKE {: .copyable } |  |
+|65552 |DELIRIOUS_LOKI {: .copyable } |  |
+|65553 |DELIRIOUS_HAUNT {: .copyable } |  |
+|65554 |LEMEGETON_VIRTUE {: .copyable } |  |
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+</div>

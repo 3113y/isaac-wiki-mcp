@@ -1,0 +1,21 @@
+# Enum "DialogButtons"
+
+<div class="rgon-only" markdown="1">
+
+[ ](#){: .rgonorplus .tooltip .badge }
+
+## RGON additions
+
+|Value|Enumerator|Comment|
+|:--|:--|:--|
+|0 |OK {: .copyable } |  |
+|1 |OK_CANCEL {: .copyable } |  |
+|2 |ABORT_RETRY_IGNORE {: .copyable } |  |
+|3 |YES_NO_CANCEL {: .copyable } |  |
+|4 |YES_NO {: .copyable } |  |
+|5 |RETRY_CANCEL {: .copyable } |  |
+|6 |CANCEL_TRY_CONTINUE {: .copyable } |  |
+|16384 |HELP {: .copyable } |  |
+> 文档说明已由受约束的语言模型统一润色；API 事实与签名仍保留其上游来源。
+
+</div>

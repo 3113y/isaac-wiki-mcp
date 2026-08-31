@@ -61,6 +61,18 @@ def _tokenize(text: str) -> list[str]:
 # Frontmatter parser
 # ---------------------------------------------------------------------------
 _FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
+_RGON_BLOCK_RE = re.compile(
+    r"\n*<div class=\"rgon-(?:extension|only)\"[^>]*>.*?</div>\n*",
+    re.DOTALL,
+)
+
+
+def _default_wiki_dir(module_file: Path) -> Path:
+    """Locate bundled wiki data in an installed wheel or a source checkout."""
+    bundled_dir = module_file.resolve().parent / "wiki"
+    if bundled_dir.exists():
+        return bundled_dir
+    return module_file.resolve().parents[2] / "wiki"
 
 
 def _parse_frontmatter(content: str) -> dict[str, Any]:
@@ -107,7 +119,7 @@ class WikiEngine:
 
     def __init__(self, wiki_dir: str | Path | None = None):
         if wiki_dir is None:
-            wiki_dir = Path(__file__).resolve().parent.parent.parent / "wiki"
+            wiki_dir = _default_wiki_dir(Path(__file__))
         self.wiki_dir = Path(wiki_dir)
 
         # In-memory index: relative_path -> full_content
@@ -134,7 +146,7 @@ class WikiEngine:
         for md_file in self.wiki_dir.rglob("*.md"):
             try:
                 content = md_file.read_text(encoding="utf-8")
-                rel_path = str(md_file.relative_to(self.wiki_dir))
+                rel_path = md_file.relative_to(self.wiki_dir).as_posix()
                 self._index[rel_path] = content
                 self._page_meta[rel_path] = _parse_frontmatter(content)
                 count += 1
@@ -154,6 +166,8 @@ class WikiEngine:
         top_k: int = 5,
         *,
         category: str | None = None,
+        language: str | None = None,
+        include_rgon: bool = True,
     ) -> list[dict[str, Any]]:
         """Full-text keyword search across all wiki pages.
 
@@ -180,8 +194,13 @@ class WikiEngine:
         if not tokens:
             return []
 
-        # Filter by category prefix
-        prefix = f"{category}/" if category else ""
+        # A bundled API Edition snapshot is organized by language.  Retain the
+        # legacy wiki as a fallback until a release includes that snapshot.
+        reference_prefix = f"reference/{language}/" if language else ""
+        has_reference = bool(reference_prefix) and any(
+            path.startswith(reference_prefix) for path in self._index
+        )
+        prefix = reference_prefix if has_reference else (f"{category}/" if category else "")
 
         scored: list[tuple[float, str]] = []
         for path, content in self._index.items():
@@ -198,7 +217,7 @@ class WikiEngine:
 
         results: list[dict[str, Any]] = []
         for score, path in scored:
-            content = self._index[path]
+            content = self._filtered_content(self._index[path], include_rgon)
             meta = self._page_meta.get(path, {})
             cat = path.split("/")[0] if "/" in path else "root"
             results.append({
@@ -266,7 +285,13 @@ class WikiEngine:
     # ------------------------------------------------------------------
     # Page reading
     # ------------------------------------------------------------------
-    def read_page(self, name_or_path: str) -> dict[str, Any] | None:
+    def read_page(
+        self,
+        name_or_path: str,
+        *,
+        language: str | None = None,
+        include_rgon: bool = True,
+    ) -> dict[str, Any] | None:
         """Read a complete wiki page by name or relative path.
 
         Resolution order:
@@ -283,12 +308,12 @@ class WikiEngine:
         """
         self._ensure_loaded()
 
-        path = self._resolve_path(name_or_path)
+        path = self._resolve_path(name_or_path, language=language)
         if path is None:
             logger.warning(f"Page not found: {name_or_path}")
             return None
 
-        content = self._index.get(path, "")
+        content = self._filtered_content(self._index.get(path, ""), include_rgon)
         meta = self._page_meta.get(path, {})
         cat = path.split("/")[0] if "/" in path else "root"
 
@@ -301,7 +326,11 @@ class WikiEngine:
             "content": content,
         }
 
-    def _resolve_path(self, name: str) -> str | None:
+    @staticmethod
+    def _filtered_content(content: str, include_rgon: bool) -> str:
+        return content if include_rgon else _RGON_BLOCK_RE.sub("\n", content)
+
+    def _resolve_path(self, name: str, *, language: str | None = None) -> str | None:
         """Resolve a page name to its relative path in the index.
 
         Tries multiple lookup strategies in order:
@@ -316,6 +345,21 @@ class WikiEngine:
             return name
         if f"{name}.md" in self._index:
             return f"{name}.md"
+
+        if language:
+            reference_prefix = f"reference/{language}/"
+            normalized_name = name.removesuffix(".md").replace("\\", "/")
+            candidate = f"{reference_prefix}{normalized_name}.md"
+            if candidate in self._index:
+                return candidate
+            name_lower = normalized_name.lower()
+            for path in self._index:
+                if not path.startswith(reference_prefix):
+                    continue
+                if path.removeprefix(reference_prefix).removesuffix(".md").lower() == name_lower:
+                    return path
+                if Path(path).stem.lower() == name_lower:
+                    return path
 
         # Try subdirectories
         for prefix in ("classes", "enums", "tutorials"):
@@ -341,7 +385,7 @@ class WikiEngine:
     # Listing
     # ------------------------------------------------------------------
     def list_pages(
-        self, category: str | None = None,
+        self, category: str | None = None, *, language: str | None = None,
     ) -> list[dict[str, Any]]:
         """List all wiki pages, optionally filtered by category.
 
@@ -355,7 +399,11 @@ class WikiEngine:
         """
         self._ensure_loaded()
 
-        prefix = f"{category}/" if category else ""
+        reference_prefix = f"reference/{language}/" if language else ""
+        has_reference = bool(reference_prefix) and any(
+            path.startswith(reference_prefix) for path in self._index
+        )
+        prefix = reference_prefix if has_reference else (f"{category}/" if category else "")
         result: list[dict[str, Any]] = []
 
         for path in sorted(self._index.keys()):

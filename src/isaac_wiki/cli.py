@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 from typing import Any
 
 from isaac_wiki.facade import WikiFacade
@@ -34,17 +35,20 @@ def _build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("search", help="Full-text search across wiki pages")
     p.add_argument("query", help="Search keywords")
     p.add_argument("--top-k", type=int, default=5)
-    p.add_argument("--category", choices=["classes", "enums", "tutorials"], default=None)
+    p.add_argument("--category", choices=["classes", "enums", "tutorials", "reference"], default=None)
+    _add_profile_arguments(p, include_incompatible=True)
     p.add_argument("--format", choices=["text", "json"], default="text")
 
     # read
     p = sub.add_parser("read", help="Read a complete wiki page")
     p.add_argument("page", help="Page name (e.g. EntityPlayer, classes/Game)")
+    _add_profile_arguments(p, include_incompatible=True)
     p.add_argument("--format", choices=["text", "json"], default="text")
 
     # list
     p = sub.add_parser("list", help="List wiki pages by category")
-    p.add_argument("--category", choices=["classes", "enums", "tutorials"], default=None)
+    p.add_argument("--category", choices=["classes", "enums", "tutorials", "reference"], default=None)
+    _add_profile_arguments(p)
     p.add_argument("--format", choices=["text", "json"], default="text")
 
     # stats
@@ -54,17 +58,41 @@ def _build_parser() -> argparse.ArgumentParser:
     # build
     p = sub.add_parser("build", help="Rebuild wiki pages from data sources")
 
+    p = sub.add_parser("sync-reference", help="Bundle a generated isaac-api-edition snapshot")
+    p.add_argument("source_root", type=Path, help="Local isaac-api-edition checkout")
+    p.add_argument("--output", type=Path, default=Path("wiki/reference"))
+
     return parser
+
+
+def _add_profile_arguments(parser: argparse.ArgumentParser, *, include_incompatible: bool = False) -> None:
+    parser.add_argument("--game", choices=["rep", "rep+"], default=None)
+    parser.add_argument(
+        "--dependency", dest="dependencies", action="append", choices=["rgon"], default=None,
+        help="Enable an API overlay; repeat for each dependency.",
+    )
+    parser.add_argument("--language", choices=["en", "zh", "auto"], default="auto")
+    if include_incompatible:
+        parser.add_argument("--include-incompatible", action="store_true")
 
 
 def _dispatch(facade: WikiFacade, args: argparse.Namespace) -> dict[str, Any]:
     cmd = args.command
     if cmd == "search":
-        return facade.search(args.query, top_k=args.top_k, category=args.category)
+        return facade.search(
+            args.query, top_k=args.top_k, category=args.category,
+            game=args.game, dependencies=args.dependencies, language=args.language,
+            include_incompatible=args.include_incompatible,
+        )
     elif cmd == "read":
-        return facade.read_page(args.page)
+        return facade.read_page(
+            args.page, game=args.game, dependencies=args.dependencies, language=args.language,
+            include_incompatible=args.include_incompatible,
+        )
     elif cmd == "list":
-        return facade.list_pages(category=args.category)
+        return facade.list_pages(
+            category=args.category, game=args.game, dependencies=args.dependencies, language=args.language,
+        )
     elif cmd == "stats":
         return facade.stats()
     elif cmd == "build":
@@ -80,6 +108,10 @@ def _dispatch(facade: WikiFacade, args: argparse.Namespace) -> dict[str, Any]:
                 f"{stats['tutorials']} tutorials"
             ),
         }
+    elif cmd == "sync-reference":
+        from isaac_wiki.snapshot import sync_snapshot
+        metadata = sync_snapshot(args.source_root, args.output)
+        return {"status": "ok", "snapshot": metadata}
     return {"status": "error", "error": f"Unknown command: {cmd}"}
 
 

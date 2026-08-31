@@ -1,8 +1,7 @@
 """
 MCP (Model Context Protocol) server — stdio JSON-RPC.
 
-Exposes 4 wiki tools to MCP-compatible agents (Claude Code, etc.):
-  wiki_search, wiki_read, wiki_list, wiki_stats
+Exposes profile-aware wiki tools to MCP-compatible agents (Claude Code, etc.).
 
 Usage::
 
@@ -80,8 +79,29 @@ TOOLS = [
                 },
                 "category": {
                     "type": "string",
-                    "enum": ["classes", "enums", "tutorials"],
+                    "enum": ["classes", "enums", "tutorials", "reference"],
                     "description": "Limit search to a page category.",
+                },
+                "game": {
+                    "type": "string",
+                    "enum": ["rep", "rep+"],
+                    "description": "Base API version. Defaults to REP.",
+                },
+                "dependencies": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": ["rgon"]},
+                    "description": "Optional API overlay dependencies.",
+                },
+                "language": {
+                    "type": "string",
+                    "enum": ["en", "zh", "auto"],
+                    "default": "auto",
+                    "description": "Response language. auto uses the query language conservatively.",
+                },
+                "include_incompatible": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": "Include entries that require a different selected profile when supported by a catalog entry.",
                 },
             },
             "required": ["query"],
@@ -101,6 +121,13 @@ TOOLS = [
                     "type": "string",
                     "description": "Page name or path. Examples: 'EntityPlayer', 'Game', 'enums/EntityType'.",
                 },
+                "game": {"type": "string", "enum": ["rep", "rep+"]},
+                "dependencies": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": ["rgon"]},
+                },
+                "language": {"type": "string", "enum": ["en", "zh", "auto"], "default": "auto"},
+                "include_incompatible": {"type": "boolean", "default": False},
             },
             "required": ["page"],
         },
@@ -116,15 +143,26 @@ TOOLS = [
             "properties": {
                 "category": {
                     "type": "string",
-                    "enum": ["classes", "enums", "tutorials"],
+                    "enum": ["classes", "enums", "tutorials", "reference"],
                     "description": "Filter by category.",
                 },
+                "game": {"type": "string", "enum": ["rep", "rep+"]},
+                "dependencies": {
+                    "type": "array",
+                    "items": {"type": "string", "enum": ["rgon"]},
+                },
+                "language": {"type": "string", "enum": ["en", "zh", "auto"], "default": "auto"},
             },
         },
     },
     {
         "name": "wiki_stats",
         "description": "Get statistics about the wiki knowledge base (page count, method count, categories).",
+        "inputSchema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "wiki_sources",
+        "description": "Describe the bundled Isaac API Edition source and supported REP/REP+/RGON profiles.",
         "inputSchema": {"type": "object", "properties": {}},
     },
 ]
@@ -149,7 +187,7 @@ def _handle(request: dict[str, Any]) -> None:
             "id": req_id,
             "result": {
                 "protocolVersion": "2024-11-05",
-                "serverInfo": {"name": "isaac-wiki", "version": "0.2.0"},
+                "serverInfo": {"name": "isaac-wiki", "version": "0.3.0"},
                 "capabilities": {"tools": {}},
             },
         })
@@ -181,17 +219,30 @@ def _handle(request: dict[str, Any]) -> None:
                     query=arguments.get("query", ""),
                     top_k=arguments.get("top_k", 5),
                     category=arguments.get("category"),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies"),
+                    language=arguments.get("language", "auto"),
+                    include_incompatible=arguments.get("include_incompatible", False),
                 )
             elif tool_name == "wiki_read":
                 result = facade.read_page(
                     page=arguments.get("page", ""),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies"),
+                    language=arguments.get("language", "auto"),
+                    include_incompatible=arguments.get("include_incompatible", False),
                 )
             elif tool_name == "wiki_list":
                 result = facade.list_pages(
                     category=arguments.get("category"),
+                    game=arguments.get("game"),
+                    dependencies=arguments.get("dependencies"),
+                    language=arguments.get("language", "auto"),
                 )
             elif tool_name == "wiki_stats":
                 result = facade.stats()
+            elif tool_name == "wiki_sources":
+                result = facade.sources()
             else:
                 result = {"status": "error", "error": f"Unknown tool: {tool_name}"}
 

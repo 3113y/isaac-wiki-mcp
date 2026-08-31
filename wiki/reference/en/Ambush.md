@@ -1,0 +1,119 @@
+---
+tags:
+  - Global
+  - Class
+---
+> Documentation prose polished by a constrained language model; API facts and signatures retain their upstream source.
+
+# Global Class "Ambush"
+
+???+ info
+    You can access this class through the `Ambush` global table.
+
+    **When calling these functions, you must use a `.` (period) instead of a `:` (colon)!**
+    
+    ???+ example "Example Code"
+        ```lua
+        local currwave = Ambush.GetCurrentWave()
+        ```
+        
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### GetCurrentWave () {: aria-label='Functions' }
+#### int GetCurrentWave ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the current wave number in the current challenge room or boss rush room.
+
+___
+
+### GetMaxBossChallengeWaves () {: aria-label='Functions' }
+#### int GetMaxBossChallengeWaves ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the maximum number of boss challenge room waves.
+
+By default, the maximum number of challenge room waves is `2`. Mods can modify this maximum.
+
+___
+
+### GetMaxBossrushWaves () {: aria-label='Functions' }
+#### int GetMaxBossrushWaves ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the maximum number of boss rush waves.
+
+By default, the maximum number of boss rush waves is `15`. Mods can modify this maximum.
+
+___
+
+### GetMaxChallengeWaves () {: aria-label='Functions' }
+#### int GetMaxChallengeWaves ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the maximum number of challenge room waves.
+
+By default, the maximum number of challenge room waves is `3`. Mods can modify this maximum.
+
+___
+
+### GetNextWave () {: aria-label='Functions' }
+#### [RoomConfigRoom](RoomConfigRoom.md) GetNextWave ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns the [RoomConfigRoom](RoomConfigRoom.md) of the next challenge room wave. Calling this function outside of a challenge room will result in an error.
+
+___
+
+### GetNextWaves () {: aria-label='Functions' }
+#### [RoomConfigRoom](RoomConfigRoom.md)[] GetNextWaves ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns a table containing the [RoomConfigRoom](RoomConfigRoom.md) of the next challenge room waves.
+
+___
+
+### SetMaxBossChallengeWaves () {: aria-label='Functions' }
+#### void SetMaxBossChallengeWaves ( int Waves ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Sets the maximum number of waves in boss challenge rooms.
+
+???+ bug "Bug"
+	Currently this value is not reset on game restart. This will be fixed as soon as we figure out how to cleanly run code on init on the C++ side!
+	
+___
+
+### SetMaxBossrushWaves () {: aria-label='Functions' }
+#### void SetMaxBossrushWaves ( int Waves ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Sets the maximum number of boss rush waves. The current maximum cap is `25` waves.
+
+___
+
+### SetMaxChallengeWaves () {: aria-label='Functions' }
+#### void SetMaxChallengeWaves ( int Waves ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Sets the maximum number of challenge room waves.
+
+???+ bug "Bug"
+	Currently this value is not reset on game restart. This will be fixed as soon as we figure out how to cleanly run code on init on the C++ side!
+	
+___
+
+### SpawnBossrushWave () {: aria-label='Functions' }
+#### void SpawnBossrushWave ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Spawns a boss rush wave in the current room.
+
+???+ bug "Bug"
+	Calling this function will do nothing unless a boss rush has been triggered at least once during the current game session.
+
+___
+
+### SpawnWave () {: aria-label='Functions' }
+#### void SpawnWave ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Spawns a challenge room wave associated with the current floor.
+
+???+ bug "Bug"
+	Calling this function crashes the game if the current game mode is Greed or Greedier.
+
+    The game also crashes if the current floor is Blue Womb.
+
+___
+
+### StartChallenge () {: aria-label='Functions' }
+#### void StartChallenge ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Triggers the challenge room or boss rush.
+
+???+ bug "Bug"
+	Calling this function outside of the boss rush room or a challenge room will do nothing except permanently close the doors, resulting in a softlock.
+
+___
+
+</div>

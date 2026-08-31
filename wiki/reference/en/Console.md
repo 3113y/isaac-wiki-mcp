@@ -1,0 +1,75 @@
+---
+tags:
+  - Global
+  - Class
+---
+> Documentation prose polished by a constrained language model; API facts and signatures retain their upstream source.
+
+# Global Class "Console"
+
+???+ info
+    You can get this class by using the `Console` global table.
+
+    **Note that to call these functions, you must use a `.` (period) instead of a `:` (colon)!**
+    
+    ???+ example "Example Code"
+        ```lua
+        local cmdhistory = Console.GetCommandHistory()
+        ```
+        
+        
+## Functions
+
+<div class="rgon-only" markdown="1">
+
+### GetCommandHistory () {: aria-label='Functions' }
+#### string[] GetCommandHistory ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns a table containing the current command history.
+
+___
+
+### GetHistory () {: aria-label='Functions' }
+#### string[] GetHistory ( ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Returns a table containing every previous entry printed to the console this run.
+
+This is ordered from last to first—the first entry is the blank line currently awaiting user input, followed by the previous print, and so on. The last line is always `Repentance Console`.
+
+___
+
+### PopHistory () {: aria-label='Functions' }
+#### void PopHistory ( int Amount = 1 ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Removes previous lines from history. Optionally, use `Amount` to specify how many entries to remove. The line currently awaiting user input in the console counts as part of the history, but the C++ side already accounts for it.
+
+___
+
+### PrintError () {: aria-label='Functions' }
+#### void PrintError ( string Error ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Prints an error to the console; errors are displayed in red text.
+
+___
+
+### PrintWarning () {: aria-label='Functions' }
+#### void PrintWarning ( string Warning ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Prints a warning to the console; warnings are displayed in yellow text.
+
+___
+
+### RegisterCommand () {: aria-label='Functions' }
+#### void RegisterCommand ( string Name, string Desc, string HelpText, boolean ShowOnMenu, [AutocompleteType](enums/AutocompleteType.md) Type ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Registers a command in the new console. These will show up in the new console's autocomplete.
+
+* `Desc` will show when typing the `help` command.
+* `HelpText` will show when typing `help (Name)`.
+* `AutocompleteType` will make the command inherit that autocomplete type. If the command doesn't fit into any of the standard types, use `CUSTOM` combined with [MC_CONSOLE_AUTOCOMPLETE](enums/ModCallbacks.md#mc_console_autocomplete) to create a bespoke one for this command.
+
+___
+
+### RegisterMacro () {: aria-label='Functions' }
+#### void RegisterMacro ( string Name, string[] Commands ) [ ](#){: .rgonorplus .tooltip .badge } {: .copyable aria-label='Functions' }
+Registers a macro in the new console. These will show up in the new console's autocomplete for the `macro` command.
+
+* `Commands` is a table of strings containing the commands that should be executed, in order.
+
+___
+
+</div>
